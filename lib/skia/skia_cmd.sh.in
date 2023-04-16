@@ -1,0 +1,3 @@
+#!/bin/sh
+
+bin/gn gen @SKIA_OUT_DIR@ --args='target_os="@SKIA_TARGET_OS@" target_cpu="@SKIA_TARGET_CPU@" ios_use_simulator=@SKIA_USE_SIMULATOR@ is_debug=false is_official_build=true skia_use_system_expat=false skia_use_system_libjpeg_turbo=false skia_use_system_libpng=false skia_use_system_libwebp=false skia_use_system_zlib=false skia_use_system_icu=false skia_use_system_harfbuzz=false extra_cflags_cc=["-frtti"]'
