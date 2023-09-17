@@ -1,0 +1,4 @@
+module CSkia {
+    umbrella header "CSkia.h"
+    export *
+}

@@ -47,6 +47,8 @@
 DEF_CLASS_MAP(SkSurface, sk_surface_t, Surface)
 DEF_CLASS_MAP(SkSurfaceProps, sk_surfaceprops_t, SurfaceProps)
 DEF_CLASS_MAP(SkCanvas, sk_canvas_t, Canvas)
+DEF_CLASS_MAP(SkPaint, sk_paint_t, Paint)
+DEF_CLASS_MAP(SkPath, sk_path_t, Path)
 
 #include "include/core/SkImageInfo.h"
 static inline SkImageInfo AsImageInfo(sk_imageinfo_t info) {

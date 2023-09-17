@@ -2,7 +2,9 @@ project(cskia)
 
 add_library(cskia STATIC
     src/sk_surface.cc
-    src/sk_canvas.cc)
+    src/sk_canvas.cc
+    src/sk_paint.cc
+    src/sk_path.cc)
 
 add_dependencies(cskia skia)
 

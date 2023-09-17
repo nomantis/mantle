@@ -60,8 +60,10 @@ typedef enum {
 
 typedef struct sk_surfaceprops_t sk_surfaceprops_t;
 
+typedef struct sk_paint_t sk_paint_t;
 typedef struct sk_canvas_t sk_canvas_t;
 typedef struct sk_surface_t sk_surface_t;
+typedef struct sk_path_t sk_path_t;
 
 typedef struct sk_imageinfo_t {
     int32_t width;
