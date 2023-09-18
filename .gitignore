@@ -4,3 +4,4 @@ build
 .build
 .swiftpm
 Swia/Frameworks
+xcuserdata
