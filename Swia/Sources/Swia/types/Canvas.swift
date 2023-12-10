@@ -1,3 +1,4 @@
+import OSLog
 #if canImport(CSkia)
 import CSkia
 #endif
@@ -11,6 +12,12 @@ public class Canvas {
         self.handle = handle
         self.pixels = pixels
         self.imageInfo = imageInfo
+    }
+
+    deinit {
+        os_log("Freeing canvas")
+        free(pixels)
+        sk_canvas_destroy(handle)
     }
 
     public static func RasterDirect(_ imageInfo: ImageInfo, _ pixels: UnsafeMutableRawPointer, _ rowBytes: Int) -> Canvas {

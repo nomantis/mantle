@@ -23,16 +23,15 @@ public struct SkCanvas: View {
                     height: Int32(size.height),
                     colorType: .rgba8888,
                     alphaType: .premultiplied)
-                if self.coordinator.canvas == nil || info.width != self.coordinator.canvas.imageInfo.width || info.height != self.coordinator.canvas.imageInfo.height {
+                if self.coordinator.canvas == nil || info.width != self.coordinator.canvas!.imageInfo.width || info.height != self.coordinator.canvas!.imageInfo.height {
                     if let bitmapData = malloc(Int(info.bytesSize)) {
                         self.coordinator.canvas = Swia.Canvas.RasterDirect(info, bitmapData, Int(info.rowBytes))
                     }
                 }
-                self.coordinator.canvas.clear(color: ColorUInt(r: 255, g: 255, b: 255, a: 255))
-                self.drawCallback(self.coordinator.canvas)
+                self.coordinator.canvas!.clear(color: ColorUInt(r: 255, g: 255, b: 255, a: 255))
+                self.drawCallback(self.coordinator.canvas!)
         
-                guard let dataProvider = CGDataProvider(dataInfo: nil, data: self.coordinator.canvas.pixels, size: Int(self.coordinator.canvas.imageInfo.bytesSize), releaseData: {ctx, ptr, size in return}) else {
-                    free(self.coordinator.canvas.pixels)
+                guard self.coordinator.canvas != nil, let dataProvider = CGDataProvider(dataInfo: nil, data: self.coordinator.canvas!.pixels, size: Int(self.coordinator.canvas!.imageInfo.bytesSize), releaseData: {ctx, ptr, size in return}) else {
                     self.coordinator.canvas = nil
                     return
                 }
@@ -40,11 +39,11 @@ public struct SkCanvas: View {
                 let colorSpace = CGColorSpaceCreateDeviceRGB()
                 let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue).union(.byteOrder32Little)
                 if let image = CGImage(
-                    width: Int(self.coordinator.canvas.imageInfo.width),
-                    height: Int(self.coordinator.canvas.imageInfo.height),
+                    width: Int(self.coordinator.canvas!.imageInfo.width),
+                    height: Int(self.coordinator.canvas!.imageInfo.height),
                     bitsPerComponent: 8,
-                    bitsPerPixel: Int(self.coordinator.canvas.imageInfo.bytesPerPixel * 8),
-                    bytesPerRow: Int(self.coordinator.canvas.imageInfo.rowBytes),
+                    bitsPerPixel: Int(self.coordinator.canvas!.imageInfo.bytesPerPixel * 8),
+                    bytesPerRow: Int(self.coordinator.canvas!.imageInfo.rowBytes),
                     space: colorSpace,
                     bitmapInfo: bitmapInfo,
                     provider: dataProvider,
@@ -64,5 +63,5 @@ public struct SkCanvas: View {
 }
 
 public class CanvasCoordinator {
-    public var canvas: Swia.Canvas!
+    public var canvas: Swia.Canvas? = nil
 }
